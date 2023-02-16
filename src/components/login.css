@@ -47,8 +47,7 @@
     background-color: #498376;
   }
 
-
-  @font-face {
-    font-family: 'Open Sans';
-    src: url('//OpenSans/OpenSans-Medium.ttf') format('truetype');
+  .txt {
+    font-family: 'Open Sans Light', sans-serif;
+    font-size: small;
   }

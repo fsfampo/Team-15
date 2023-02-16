@@ -23,6 +23,7 @@ function Login() {
         </label>
         <button type="submit">Login</button>
       </form>
+      <h3 className='txt'>New to this site? Sign Up</h3>
     </div>
   );
   
