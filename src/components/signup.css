@@ -1,0 +1,22 @@
+.signup-container {
+    position: relative;
+    top: calc(25vh - 50px);
+    left: 50%; 
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  h1 {
+    font-weight: normal;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  h3 {
+    font-weight: normal;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  @font-face {
+    font-family: 'Open Sans';
+    src: url('//OpenSans/OpenSans-Medium.ttf') format('truetype');
+  }
