@@ -1,5 +1,7 @@
 import { render } from '@testing-library/react';
 import React, { useState } from 'react';
+import ReactDOM from "react-dom/client";
+import { Link } from "react-router-dom";
 import './login.css';
 
 function Login() {
@@ -23,7 +25,9 @@ function Login() {
         </label>
         <button type="submit">Login</button>
       </form>
-      <h3 className='txt'>New to this site? Sign Up</h3>
+      <h3 className='txt'>New to this site? 
+      <Link to="/signup" className='login_button'> Sign Up</Link>
+      </h3>
     </div>
   );
   
