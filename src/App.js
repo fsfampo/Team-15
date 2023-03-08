@@ -2,9 +2,10 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Menu from "./pages/Menu";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
+import WorkoutPrograms from "./pages/WorkoutPrograms";
+import WorkoutVideos from "./pages/WorkoutVideos";
+import MealPlans from "./pages/MealPlans";
+import Routines from "./pages/Routines";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -14,9 +15,10 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/menu" exact component={Menu} />
-          <Route path="/about" exact component={About} />
-          <Route path="/contact" exact component={Contact} />
+          <Route path="/workout-programs" exact component={WorkoutPrograms} />
+          <Route path="/workout-videos" exact component={WorkoutVideos} />
+          <Route path="/meal-plans" exact component={MealPlans} />
+          <Route path="/routines" exact component={Routines} />
         </Switch>
         <Footer />
       </Router>

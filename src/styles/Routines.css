@@ -19,7 +19,7 @@
   flex-direction: column;
   height: 55%;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .aboutBottom p {
@@ -30,8 +30,29 @@
   font-weight: 400;
   font-size: 70px;
   color: black;
-  height: 30px;
+  height: 0px;
   display: flex;
   justify-content: center;
   transform: translateY(-40px);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 0;
+  margin: 0;
+  margin-right: 10px;
+}
+
+.about .aboutBottom ul {
+  font-size: 20px;
+  flex: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; 
 }

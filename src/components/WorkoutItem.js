@@ -1,13 +1,13 @@
 import React from "react";
 
-function MenuItem({ image, name, price }) {
+function WorkoutItem({ image, name, difficulty }) {
   return (
     <div className="menuItem">
       <div style={{ backgroundImage: `url(${image})` }}> </div>
       <h1> {name} </h1>
-      <p> ${price} </p>
+      <p> {difficulty} </p>
     </div>
   );
 }
 
-export default MenuItem;
+export default WorkoutItem;
