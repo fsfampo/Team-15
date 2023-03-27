@@ -4,14 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from '../api/axios';
 import "./signup.css"
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "http://localhost:8888/signup";
+const REGISTER_URL = "http://gojim-backend.eastasia.cloudapp.azure.com/signup"
 
 const Register = () => {
     const userRef = useRef();
     const errRef = useRef();
+    const nav = useNavigate();
 
     const [first_name, setFName] = useState('');
     const [fNameFocus, setFNameFocus] = useState(false);
@@ -75,8 +77,8 @@ const Register = () => {
             return;
         }
         try {
-            const response = await axios.put(REGISTER_URL,
-                JSON.stringify({ first_name: first_name, last_name: last_name, role: role, email: email, pwd: pwd, speciality: "", location: "", gender: ""}),
+            const response = await axios.post(REGISTER_URL,
+                JSON.stringify({ first_name: first_name, last_name: last_name, role: role, email: email, password: pwd, speciality: "", location: "", gender: ""}),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -91,6 +93,7 @@ const Register = () => {
             setEmail('');
             setPwd('');
             setMatchPwd('');
+            nav("/");
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -107,10 +110,7 @@ const Register = () => {
         <>
             {success ? (
                 <section>
-                    <h1>Success!</h1>
-                    <p>
-                        <a href="/signup">Sign In</a>
-                    </p>
+                    
                 </section>
             ) : (
                 <section className="signup-container">

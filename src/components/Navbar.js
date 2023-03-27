@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Logo from "../assets/goJimLogo.jpg";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
+import SearchBar from "./SearchBar";
 
 function Navbar() {
   const [openLinks, setOpenLinks] = useState(false);
@@ -17,6 +18,7 @@ function Navbar() {
         <Link to="/workout-videos"> Workout Videos </Link>
         <Link to="/meal-plans"> Meal Plans </Link>
         <Link to="/routines"> Routines </Link>
+        <SearchBar />
       </div>
     </div>
   );

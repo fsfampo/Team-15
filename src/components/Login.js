@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from '../api/axios';
 import './login.css';
 
-const LOGIN_URL = "http://localhost:8888/login";
+const LOGIN_URL = "http://gojim-backend.eastasia.cloudapp.azure.com/login"; 
 
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
@@ -30,7 +30,7 @@ const Login = () => {
 
         try {
             const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ email: email, pwd: pwd, mfa_code: ""}),
+                JSON.stringify({ email: email, password: pwd, mfa_code: ""}),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -40,6 +40,7 @@ const Login = () => {
             const accessToken = response.data.access_token;
             const roles = response.data.roles;
             setAuth({ email, pwd, roles, accessToken });
+            console.log(setAuth)
             setEmail('');
             setPwd('');
             setSuccess(true);
