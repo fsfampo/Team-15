@@ -2,6 +2,7 @@ import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { Link } from "react-router-dom";
 import axios from '../api/axios';
+import { useNavigate } from "react-router-dom";
 import '../styles/login.css';
 
 const LOGIN_URL = "http://gojim-backend.eastasia.cloudapp.azure.com/login"; 
@@ -12,6 +13,7 @@ const Login = () => {
     const pwdRef = useRef();
     const mfaRef = useRef();
     const errRef = useRef();
+    const nav = useNavigate();
 
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
@@ -38,11 +40,11 @@ const Login = () => {
                     withCredentials: true
                 }
             );
-            console.log(JSON.stringify(response.data));
             const accessToken = response.data.access_token;
+            localStorage.setItem('token', accessToken); 
             const roles = response.data.roles;
             setAuth({ email, pwd, roles, accessToken });
-            console.log(setAuth)
+            console.log(localStorage); 
             setEmail('');
             setPwd('');
             setMfaCode(''); 
@@ -70,20 +72,10 @@ const Login = () => {
         pwdRef.current.type = 'password';
     }
 
-    const handleMfaBlur = (e) => {
-        e.preventDefault();
-    }
-
-    const handleMfaFocus = () => {
-        mfaRef.current.type = 'mfaCode';
-    }
-
     return (
         <>
             {success ? (
-                <section>
-                    
-                </section>
+                nav("/")
             ) : (
                 <section className="login-container">
                     <p ref={errRef} className={errMsg ? "errmsg" :
@@ -118,8 +110,6 @@ const Login = () => {
 
                             onChange={(e) => setMfaCode(e.target.value)}
                             value={mfaCode}
-                            onBlur={handleMfaBlur}
-                            onFocus={handleMfaFocus}
                             required
                         />
                         <button>Sign In</button>
