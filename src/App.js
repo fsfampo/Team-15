@@ -6,8 +6,8 @@ import WorkoutPrograms from "./pages/WorkoutPrograms";
 import WorkoutVideos from "./pages/WorkoutVideos";
 import MealPlans from "./pages/MealPlans";
 import Routines from "./pages/Routines";
-import Login from './components/Login';
-import Register from './components/Register';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -17,14 +17,36 @@ function App() {
         <Routes>
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<Register />} />
-        </Routes>
-        <Navbar />
-        <Routes>
-          <Route path="/" exact element={<Home/>} />
-          <Route path="/workout-programs" element={<WorkoutPrograms/>} />
-          <Route path="/workout-videos" element={<WorkoutVideos />} />
-          <Route path="/meal-plans" element={<MealPlans/>} />
-          <Route path="/routines"  element={<Routines/>} />
+          <Route path="/" exact element={
+            <>
+              <Navbar />
+              <Home/>
+            </>
+          }/>
+          <Route path="/workout-programs" element={
+            <>
+              <Navbar />
+              <WorkoutPrograms/>
+            </>
+          }/>
+          <Route path="/workout-videos" element={
+            <>
+              <Navbar />
+              <WorkoutVideos />
+            </>
+          } />
+          <Route path="/meal-plans" element={
+            <>
+              <Navbar/>
+              <MealPlans/>
+            </>
+          } />
+          <Route path="/routines"  element={
+            <>
+              <Navbar/>
+              <Routines/>
+            </>
+          } />
         </Routes>
         <Footer />
       </BrowserRouter>

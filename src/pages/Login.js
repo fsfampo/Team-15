@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { Link } from "react-router-dom";
 import axios from '../api/axios';
-import './login.css';
+import '../styles/login.css';
 
 const LOGIN_URL = "http://gojim-backend.eastasia.cloudapp.azure.com/login"; 
 
@@ -10,11 +10,13 @@ const Login = () => {
     const { setAuth } = useContext(AuthContext);
     const userRef = useRef();
     const pwdRef = useRef();
+    const mfaRef = useRef();
     const errRef = useRef();
 
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
+    const [mfaCode, setMfaCode] = useState(''); 
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
@@ -30,7 +32,7 @@ const Login = () => {
 
         try {
             const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ email: email, password: pwd, mfa_code: ""}),
+                JSON.stringify({ email: email, password: pwd, mfa_code: mfaCode}),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -43,6 +45,7 @@ const Login = () => {
             console.log(setAuth)
             setEmail('');
             setPwd('');
+            setMfaCode(''); 
             setSuccess(true);
         } catch (err) {
             if (!err?.response) {
@@ -67,15 +70,19 @@ const Login = () => {
         pwdRef.current.type = 'password';
     }
 
+    const handleMfaBlur = (e) => {
+        e.preventDefault();
+    }
+
+    const handleMfaFocus = () => {
+        mfaRef.current.type = 'mfaCode';
+    }
+
     return (
         <>
             {success ? (
                 <section>
-                    <h1>You are logged in</h1>
-                    <br />
-                    <p>
-                        <a href="#">Go to Home</a>
-                    </p>
+                    
                 </section>
             ) : (
                 <section className="login-container">
@@ -102,6 +109,17 @@ const Login = () => {
                             value={pwd}
                             onBlur={handlePwdBlur}
                             onFocus={handlePwdFocus}
+                            required
+                        />
+                        <label htmlFor="mfaCode">MFA Code:</label>
+                        <input
+                            type="text"
+                            id="mfaCode"
+
+                            onChange={(e) => setMfaCode(e.target.value)}
+                            value={mfaCode}
+                            onBlur={handleMfaBlur}
+                            onFocus={handleMfaFocus}
                             required
                         />
                         <button>Sign In</button>

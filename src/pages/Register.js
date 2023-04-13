@@ -2,9 +2,10 @@ import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from '../api/axios';
-import "./signup.css"
+import "../styles/signup.css"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import {QRCodeSVG} from 'qrcode.react';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -31,6 +32,8 @@ const Register = () => {
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
+    const [qrImg, setqrImg] = useState('');
+
     const [matchPwd, setMatchPwd] = useState('');
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
@@ -49,6 +52,10 @@ const Register = () => {
     useEffect(() => {
         setLName(last_name);
     }, [last_name])
+
+    useEffect(() => {
+        setqrImg(qrImg);
+    }, [qrImg])
 
     useEffect(() => {
         setRole(role);
@@ -78,22 +85,21 @@ const Register = () => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ first_name: first_name, last_name: last_name, role: role, email: email, password: pwd, speciality: "", location: "", gender: ""}),
+                JSON.stringify({ first_name: first_name, last_name: last_name, role: role, email: email, password: pwd}),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
-            console.log(response?.data);
-            console.log(response?.accessToken);
-            console.log(JSON.stringify(response))
+            //console.log("STRINGIFY: " + JSON.stringify(response)); 
+            const qrImage = response.data.qr_image;
+            setqrImg(qrImage);
             setSuccess(true);
-            //clear state and controlled inputs
-            //need value attrib on inputs for this
+
             setEmail('');
             setPwd('');
             setMatchPwd('');
-            nav("/");
+            //nav("/login");
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -109,9 +115,7 @@ const Register = () => {
     return (
         <>
             {success ? (
-                <section>
-                    
-                </section>
+                <img src={`data:image/png;base64,${qrImg}`} alt="QR code" />
             ) : (
                 <section className="signup-container">
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
@@ -231,7 +235,6 @@ const Register = () => {
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Must match the first password input field.
                         </p>
-
                         <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
                     </form>
                     <p>
