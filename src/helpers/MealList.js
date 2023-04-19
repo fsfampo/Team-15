@@ -8,6 +8,12 @@ import Lean from "../assets/lean.jpg";
 
 
 export const MealList = [
+
+  {
+    name: "Daily Meal",
+    image: Vegetables,
+    difficulty: ""
+  },
   {
     name: "Weight Loss",
     image: Vegetables,

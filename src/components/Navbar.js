@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="leftSide" id={openLinks ? "open" : "close"}>
-        <img src={Logo} />
+        <Link to="/"><img src={Logo} alt="GoJim Logo" /></Link>
       </div>
       <div className="rightSide">
         <Link to="/"> Home </Link>
@@ -18,6 +18,7 @@ function Navbar() {
         <Link to="/workout-videos"> Workout Videos </Link>
         <Link to="/meal-plans"> Meal Plans </Link>
         <Link to="/routines"> Routines </Link>
+        <Link to="/chat"> Chat </Link>
         <SearchBar />
       </div>
     </div>

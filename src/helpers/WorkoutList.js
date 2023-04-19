@@ -10,6 +10,11 @@ import BackThree from "../assets/backThree.jpg";
 
 export const WorkoutList = [
   {
+    name: "Daily Workout",
+    image: Arms,
+    difficulty: "Medium | Calories Burnt: 900"
+  },
+  {
     name: "Arms",
     image: Arms,
     difficulty: "Beginner | Calories Burnt: 900"
@@ -53,5 +58,5 @@ export const WorkoutList = [
     name: "Back",
     image: BackThree,
     difficulty: "Expert | Calories Burnt: 1200"
-  },
+  }
 ];

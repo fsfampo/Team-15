@@ -11,7 +11,6 @@ const Login = () => {
     const { setAuth } = useContext(AuthContext);
     const userRef = useRef();
     const pwdRef = useRef();
-    const mfaRef = useRef();
     const errRef = useRef();
     const nav = useNavigate();
 

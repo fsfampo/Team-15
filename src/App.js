@@ -8,6 +8,7 @@ import MealPlans from "./pages/MealPlans";
 import Routines from "./pages/Routines";
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Chat from "./pages/Chat";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -45,6 +46,12 @@ function App() {
             <>
               <Navbar/>
               <Routines/>
+            </>
+          } />
+          <Route path="/chat"  element={
+            <>
+              <Navbar/>
+              <Chat/>
             </>
           } />
         </Routes>
