@@ -1,0 +1,89 @@
+.messaging-app {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar {
+    background-color: #f2f2f2;
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    margin: 0;
+    padding: 10px;
+  }
+  
+  button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  
+  img {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  span {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .sidebar button:hover {
+    background-color: #e2e2e2;
+  }
+  
+  .main {
+    width: 80%;
+    padding: 1rem;
+  }
+  
+  .message-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .message {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .user {
+    background-color: #007bff;
+    color: #fff;
+    align-self: flex-end;
+  }
+  
+  .recipient {
+    background-color: rgb(202, 194, 194)
+  }
