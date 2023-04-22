@@ -5,11 +5,23 @@ import axios from '../api/axios';
 import "../styles/signup.css"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {QRCodeSVG} from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
+import img1 from '../assets/signup/bags.jpg'
+import img2 from '../assets/signup/band.jpg'; 
+import img3 from '../assets/signup/box.jpg'; 
+import img4 from '../assets/signup/dumbbell.jpg';
+import img5 from '../assets/signup/equip.jpg'; 
+import img6 from '../assets/signup/pose.jpg'; 
+import img7 from '../assets/signup/squat.jpg'; 
+import img8 from '../assets/signup/stretch.jpg'; 
+import img9 from '../assets/signup/weight.jpg'; 
+import img10 from '../assets/signup/weights.jpg'; 
+import img11 from '../assets/signup/yoga.jpg'; 
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "http://gojim-backend.eastasia.cloudapp.azure.com/signup"
+const REGISTER_URL = "http://gojim-backend.eastasia.cloudapp.azure.com/signup"; 
+const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11];
 
 const Register = () => {
     const userRef = useRef();
@@ -40,6 +52,19 @@ const Register = () => {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+
+    const [currentImage, setCurrentImage] = useState(images[0]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            // update current image index
+            const currentIndex = images.indexOf(currentImage);
+            const nextIndex = (currentIndex + 1) % images.length;
+            setCurrentImage(images[nextIndex]);
+        },6000); // change image every minute
+
+        return () => clearInterval(interval);
+    }, [currentImage]);
 
     useEffect(() => {
         userRef.current.focus();
@@ -85,7 +110,7 @@ const Register = () => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ first_name: first_name, last_name: last_name, role: role, email: email, password: pwd}),
+                JSON.stringify({ first_name: first_name, last_name: last_name, role: role, email: email, password: pwd }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -115,134 +140,148 @@ const Register = () => {
     return (
         <>
             {success ? (
-                <img src={`data:image/png;base64,${qrImg}`} alt="QR code" />
+                <section className="container">
+                    <section className="image-container">
+                        <img className="images" src={currentImage} alt="Bags" />
+                    </section>
+                    <section className="signup-container">
+                        <h2>Scan this code for log in!</h2>
+                        <img className="qrImg" src={`data:image/png;base64,${qrImg}`} alt="QR code" />
+                        <button className="qr-button">Log In</button>
+                    </section>
+                </section>
             ) : (
-                <section className="signup-container">
+                <section className="container">
+                    <section className="image-container">
+                        <img className="images" src={currentImage} alt="Bags" />
+                    </section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Sign Up</h1>
-                    <form className='signup-form' onSubmit={handleSubmit}>
-                        <label htmlFor="first_name"></label>
-                        <input
-                            type="text"
-                            id="first_name"
-                            className="signup_input"
-                            placeholder="First Name"
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setFName(e.target.value)}
-                            value={first_name}
-                            required
-                            onFocus={() => setFNameFocus(true)}
-                            onBlur={() => setFNameFocus(false)}
-                        />
+                    <section className="signup-container">
+                        <h1 className="head">Sign Up</h1>
+                        <form className='signup-form' onSubmit={handleSubmit}>
+                            <label htmlFor="first_name"></label>
+                            <input
+                                type="text"
+                                id="first_name"
+                                className="signup_input"
+                                placeholder="First Name"
+                                ref={userRef}
+                                autoComplete="off"
+                                onChange={(e) => setFName(e.target.value)}
+                                value={first_name}
+                                required
+                                onFocus={() => setFNameFocus(true)}
+                                onBlur={() => setFNameFocus(false)}
+                            />
 
-                        <label htmlFor="last_name"></label>
-                        <input
-                            type="text"
-                            id="last_name"
-                            className="signup_input"
-                            placeholder="Last Name"
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setLName(e.target.value)}
-                            value={last_name}
-                            required
-                            onFocus={() => setLNameFocus(true)}
-                            onBlur={() => setLNameFocus(false)}
-                        />
+                            <label htmlFor="last_name"></label>
+                            <input
+                                type="text"
+                                id="last_name"
+                                className="signup_input"
+                                placeholder="Last Name"
+                                ref={userRef}
+                                autoComplete="off"
+                                onChange={(e) => setLName(e.target.value)}
+                                value={last_name}
+                                required
+                                onFocus={() => setLNameFocus(true)}
+                                onBlur={() => setLNameFocus(false)}
+                            />
 
-                        <label htmlFor="role"></label>
-                        <select defaultValue="user" id="role" className="signup_select" required onChange={(e)=>{this.setRole({value: e.target.value})}}>
-                            <option value="" disabled selected>Choose an option</option>
-                            <option value="user">User</option>
-                            <option value="instructor">Instructor</option>
-                            <option value="admin">Admin</option>
-                        </select>
+                            <label htmlFor="role"></label>
+                            <select defaultValue="user" id="role" className="signup_select" required onChange={(e) => { this.setRole({ value: e.target.value }) }}>
+                                <option value="" disabled selected>Choose an option</option>
+                                <option value="user">User</option>
+                                <option value="instructor">Instructor</option>
+                                <option value="admin">Admin</option>
+                            </select>
 
-                        <label htmlFor="email">
-                            <span className={validName ? "valid" : "hide"}>
-                                <FontAwesomeIcon icon={faCheck} />
+                            <label htmlFor="email">
+                                <span className={validName ? "valid" : "hide"}>
+                                    <FontAwesomeIcon icon={faCheck} />
+                                </span>
+
+                                <span className={validName || !email ? "hide" : "invalid"}>
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </span>
+                            </label>
+                            <input
+                                type="text"
+                                id="email"
+                                className="signup_input"
+                                placeholder="Email Addresss"
+                                ref={userRef}
+                                autoComplete="off"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                                required
+                                aria-invalid={validName ? "false" : "true"}
+                                aria-describedby="uidnote"
+                                onFocus={() => setEmailFocus(true)}
+                                onBlur={() => setEmailFocus(false)}
+                            />
+                            <p id="uidnote" className={emailFocus && email && !validName && email.length > 0 ? "instructions" : "offscreen"}>
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                                Must be a valid email address.
+                            </p>
+
+
+                            <label htmlFor="password">
+                                <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
+                                <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                className="signup_input"
+                                placeholder="Password"
+                                onChange={(e) => setPwd(e.target.value)}
+                                value={pwd}
+                                required
+                                aria-invalid={validPwd ? "false" : "true"}
+                                aria-describedby="pwdnote"
+                                onFocus={() => setPwdFocus(true)}
+                                onBlur={() => setPwdFocus(false)}
+                            />
+                            <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                                8 to 24 characters.<br />
+                                Must include uppercase and lowercase letters, a number and a special character.<br />
+                                Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                            </p>
+
+
+                            <label htmlFor="confirm_pwd">
+                                <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
+                                <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
+                            </label>
+                            <input
+                                type="password"
+                                id="confirm_pwd"
+                                className="signup_input"
+                                placeholder="Confirm Password"
+                                onChange={(e) => setMatchPwd(e.target.value)}
+                                value={matchPwd}
+                                required
+                                aria-invalid={validMatch ? "false" : "true"}
+                                aria-describedby="confirmnote"
+                                onFocus={() => setMatchFocus(true)}
+                                onBlur={() => setMatchFocus(false)}
+                            />
+                            <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                                Must match the first password input field.
+                            </p>
+                            <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                        </form>
+                        <p>
+                            Already Have an Account?
+                            <span className="line">
+                                <Link to="/Login" className='login_button'> Login</Link>
                             </span>
-
-                            <span className={validName || !email ? "hide" : "invalid"}>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </span>
-                        </label>
-                        <input
-                            type="text"
-                            id="email"
-                            className="signup_input"
-                            placeholder="Email Addresss"
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                            required
-                            aria-invalid={validName ? "false" : "true"}
-                            aria-describedby="uidnote"
-                            onFocus={() => setEmailFocus(true)}
-                            onBlur={() => setEmailFocus(false)}
-                        />
-                        <p id="uidnote" className={emailFocus && email && !validName && email.length > 0 ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            Must be a valid email address.
                         </p>
-
-
-                        <label htmlFor="password">
-                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            className="signup_input"
-                            placeholder="Password"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
-                            required
-                            aria-invalid={validPwd ? "false" : "true"}
-                            aria-describedby="pwdnote"
-                            onFocus={() => setPwdFocus(true)}
-                            onBlur={() => setPwdFocus(false)}
-                        />
-                        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            8 to 24 characters.<br />
-                            Must include uppercase and lowercase letters, a number and a special character.<br />
-                            Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
-                        </p>
-
-
-                        <label htmlFor="confirm_pwd">
-                            <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
-                        </label>
-                        <input
-                            type="password"
-                            id="confirm_pwd"
-                            className="signup_input"
-                            placeholder="Confirm Password"
-                            onChange={(e) => setMatchPwd(e.target.value)}
-                            value={matchPwd}
-                            required
-                            aria-invalid={validMatch ? "false" : "true"}
-                            aria-describedby="confirmnote"
-                            onFocus={() => setMatchFocus(true)}
-                            onBlur={() => setMatchFocus(false)}
-                        />
-                        <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            Must match the first password input field.
-                        </p>
-                        <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
-                    </form>
-                    <p>
-                        Already Have an Account?
-                        <span className="line">
-                            <Link to="/Login" className='login_button'> Login</Link>
-                        </span>
-                    </p>
+                    </section>
                 </section>
             )}
         </>
