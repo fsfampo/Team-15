@@ -43,39 +43,46 @@
   }
   
   .menuItem h1 {
-    font-size: 1.2rem;
-    font-weight: 500; /* reduce the font weight */
-    margin: 0;
-    line-height: 1.7;
+    margin-top: 10px; 
+    font-size: 1.1rem;
+    font-weight: 400; 
+    margin: 0 0 10px; 
+    line-height: 2;
     text-align: center;
     overflow-wrap: break-word;
     font-family: 'Open Sans', sans-serif;
   }
   
   .menuItem p {
-    font-size: 0.9rem; /* adjust the font size */
-    line-height: 1.7; /* adjust the line height */
-    margin: 0;
+    font-size: 0.9rem; 
+    line-height: 1; 
+    margin-top: 0px; 
+    margin-bottom: 0px;
+    font-weight: 200;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
   }
 
-  /* Media query for smaller screens */
   @media (max-width: 768px) {
     .menuItem {
-      /* Decrease font size for longer text */
       font-size: calc(16px - 0.1vw);
     }
   }
   
-  /* Media query for larger screens */
   @media (min-width: 1024px) {
     .menuItem {
-      /* Increase font size for longer text */
       font-size: calc(16px + 0.1vw);
     }
   }
   
+  .menuItem p:first-child {
+    margin-bottom: 5px; 
+  }
   
-  
-  
+  .menuItem h1, .menuItem p {
+  line-height: 1.2;
+  }
+
+  .menuItem p:nth-of-type(2) {
+    margin-bottom: 10px; /* add margin only after the second paragraph */
+  }

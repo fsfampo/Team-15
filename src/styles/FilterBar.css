@@ -1,0 +1,75 @@
+.filterBar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, width 0.5s ease-in-out;
+  font-family: 'Open Sans', sans-serif;
+  width: 80px;
+  overflow: hidden;
+}
+
+.filterButton {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  padding: 8px 12px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.filterButton:hover {
+  background-color: #ccc;
+}
+
+.filterOptions {
+  display: none;
+  flex-wrap: wrap;
+}
+
+.filterOption {
+  padding: 8px 12px;
+  margin: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.filterOption:hover {
+  background-color: #ccc;
+}
+
+.filterOption.active {
+  background-color: #949494;
+  color: #fff;
+  border-color: #949494;
+}
+
+.filterBar.expanded {
+  width: 100%;
+  height: auto;
+}
+
+.filterOptions.expanded {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.filterOption.expanded {
+  font-size: 14px;
+  padding: 6px 10px;
+  margin: 2px;
+  border-radius: 16px;
+}

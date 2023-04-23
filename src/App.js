@@ -11,9 +11,11 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Chat from "./pages/Chat";
 import SignupNavbar from "./components/SignupNavbar";
-import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation} from "react-router-dom";
+import VideoPage from "./pages/VideoPage";
 
 function App() {
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -64,6 +66,12 @@ function App() {
             <>
               <Navbar/>
               <Chat/>
+            </>
+          } />
+          <Route path="/video" element={
+            <>
+              <Navbar/>
+              <VideoPage/>
             </>
           } />
         </Routes>
