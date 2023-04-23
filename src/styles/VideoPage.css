@@ -25,18 +25,15 @@
   height: 0;
   padding-bottom: 21%;
   position: relative;
-  border: 2px solid black;
-  border-radius: 5px;
-  overflow: hidden;
+  margin-top: 1rem; /* Add margin to move the video down */
 }
 
 .videoContainer {
   width: 100%;
-  max-width: 600px;
-  padding-bottom: 39%;
+  height: 0;
+  padding-bottom: 56.25%; /* Set height to 56.25% to maintain the aspect ratio */
   position: relative;
 }
-
 .videoPlayer {
   position: absolute;
   top: 0;
@@ -45,11 +42,38 @@
   height: 100%;
 }
 
+.videoDetails {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.videoDetails p {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.videoDescription {
+  width: 100%;
+  max-width: 640px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-top: 16px;
+  text-align: left;
+}
+
 .videoTags {
+  width: 100%;
+  max-width: 640px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 16px;
+  align-items: flex-start;
 }
 
 .videoTags li {
@@ -64,5 +88,27 @@
 @media screen and (max-width: 768px) {
   .videoTitle {
     font-size: 1.5rem;
+  }
+
+  .videoBox {
+    max-width: 480px;
+    padding-bottom: 56.25%;
+  }
+
+  .videoContainer {
+    max-width: 480px;
+    padding-bottom: 56.25%;
+  }
+
+  .videoDetails {
+    max-width: 480px;
+  }
+
+  .videoDescription {
+    max-width: 480px;
+  }
+
+  .videoTags {
+    max-width: 480px;
   }
 }
