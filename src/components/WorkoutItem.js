@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/WorkoutPrograms.css";
-import VideoPage from "../pages/VideoPage";
 
 function WorkoutItem({ name, difficulty, views, rating, duration, contentURL, imgUrl, tags, description, likes, dislikes, calories}) {
   const navigate = useNavigate();

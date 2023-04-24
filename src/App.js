@@ -13,6 +13,7 @@ import Chat from "./pages/Chat";
 import SignupNavbar from "./components/SignupNavbar";
 import { BrowserRouter, Routes, Route, useLocation} from "react-router-dom";
 import VideoPage from "./pages/VideoPage";
+import RoutineWorkouts from "./pages/RoutineWorkouts";
 
 function App() {
 
@@ -72,6 +73,12 @@ function App() {
             <>
               <Navbar/>
               <VideoPage/>
+            </>
+          } />
+          <Route path="/routine" element={
+            <>
+              <Navbar/>
+              <RoutineWorkouts/>
             </>
           } />
         </Routes>

@@ -6,7 +6,7 @@ function MealItem({ name, imgUrl, calories, servings}) {
 
   return (
     <div className="menuItem">
-      <h1> {name} </h1>
+    <h1 className="mealTitle">{name}</h1>
       <div style={{ backgroundImage: `url(${imgUrl})`, height: '100%'}}> </div>
       <p>calories: {calories} | servings: {servings}</p>
     </div>

@@ -15,9 +15,8 @@ function Navbar() {
       <div className="rightSide">
         <Link to="/"> Home </Link>
         <Link to="/workout-programs"> Workout Programs </Link>
-        <Link to="/workout-videos"> Workout Videos </Link>
+        <Link to="/workout-videos"> Routines </Link>
         <Link to="/meal-plans"> Meal Plans </Link>
-        <Link to="/routines"> Routines </Link>
         <Link to="/chat"> Chat </Link>
         <SearchBar />
       </div>
