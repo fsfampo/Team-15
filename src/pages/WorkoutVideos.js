@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/WorkoutPrograms.css";
 import RoutineItem from "../components/RoutineItem";
+import Loading from "../components/Loading";
 
 function WorkoutVideos() {
   const [workouts, setWorkouts] = useState([]);
-  console.log(workouts); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -20,8 +21,10 @@ function WorkoutVideos() {
           }
         );
         setWorkouts(response.data.result);
+        setLoading(false);
       } catch (error) {
         console.error(error);
+        setLoading(false);
       }
     };
 
@@ -30,16 +33,20 @@ function WorkoutVideos() {
 
   return (
     <div className="workoutsContainer">
-    {workouts.map((routine, index) => (
-      <RoutineItem
-        key={index}
-        name={routine.name}
-        difficulty={routine.difficulty}
-        days={routine.no_days}
-        workouts={routine.workouts}
-      />
-    ))}
-  </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        workouts.map((routine, index) => (
+          <RoutineItem
+            key={index}
+            name={routine.name}
+            difficulty={routine.difficulty}
+            days={routine.no_days}
+            workouts={routine.workouts}
+          />
+        ))
+      )}
+    </div>
   );
 }
 

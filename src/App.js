@@ -15,6 +15,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import VideoPage from "./pages/VideoPage";
 import RoutineWorkouts from "./pages/RoutineWorkouts";
 import SearchPage from "./pages/SearchPage";
+import Profile from "./pages/Profile";
 
 function App() {
 
@@ -86,6 +87,12 @@ function App() {
             <>
               <Navbar />
               <SearchPage />
+            </>
+          } />
+          <Route path="/profile" element={
+            <>
+              <Navbar />
+              <Profile />
             </>
           } />
         </Routes>

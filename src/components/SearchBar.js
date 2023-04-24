@@ -27,7 +27,7 @@ function SearchBar() {
         placeholder="Search" 
         value={searchQuery} 
         onChange={(e) => setSearchQuery(e.target.value)}
-        style={{ display: 'inline-block', marginRight: '10px', borderRadius: '10px', height: '18px'}} 
+        style={{ display: 'inline-block', marginRight: '10px', borderRadius: '12px', height: '20px'}} 
       />
       <button 
         onClick={handleSearch}

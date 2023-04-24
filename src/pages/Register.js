@@ -7,20 +7,20 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { QRCodeSVG } from 'qrcode.react';
 import img1 from '../assets/signup/bags.jpg'
-import img2 from '../assets/signup/band.jpg'; 
-import img3 from '../assets/signup/box.jpg'; 
+import img2 from '../assets/signup/band.jpg';
+import img3 from '../assets/signup/box.jpg';
 import img4 from '../assets/signup/dumbbell.jpg';
-import img5 from '../assets/signup/equip.jpg'; 
-import img6 from '../assets/signup/pose.jpg'; 
-import img7 from '../assets/signup/squat.jpg'; 
-import img8 from '../assets/signup/stretch.jpg'; 
-import img9 from '../assets/signup/weight.jpg'; 
-import img10 from '../assets/signup/weights.jpg'; 
-import img11 from '../assets/signup/yoga.jpg'; 
+import img5 from '../assets/signup/equip.jpg';
+import img6 from '../assets/signup/pose.jpg';
+import img7 from '../assets/signup/squat.jpg';
+import img8 from '../assets/signup/stretch.jpg';
+import img9 from '../assets/signup/weight.jpg';
+import img10 from '../assets/signup/weights.jpg';
+import img11 from '../assets/signup/yoga.jpg';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "http://gojim-backend.eastasia.cloudapp.azure.com/signup"; 
+const REGISTER_URL = "http://gojim-backend.eastasia.cloudapp.azure.com/signup";
 const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11];
 
 const Register = () => {
@@ -55,13 +55,15 @@ const Register = () => {
 
     const [currentImage, setCurrentImage] = useState(images[0]);
 
+    const [gender, setGender] = useState('');
+
     useEffect(() => {
         const interval = setInterval(() => {
             // update current image index
             const currentIndex = images.indexOf(currentImage);
             const nextIndex = (currentIndex + 1) % images.length;
             setCurrentImage(images[nextIndex]);
-        },6000); // change image every minute
+        }, 6000); // change image every minute
 
         return () => clearInterval(interval);
     }, [currentImage]);
@@ -99,6 +101,10 @@ const Register = () => {
         setErrMsg('');
     }, [email, pwd, matchPwd])
 
+    useEffect(() => {
+        setGender(gender);
+    }, [gender])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         // if button enabled with JS hack
@@ -110,7 +116,7 @@ const Register = () => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ first_name: first_name, last_name: last_name, role: role, email: email, password: pwd }),
+                JSON.stringify({ first_name: first_name, last_name: last_name, role: role, email: email, password: pwd, gender: gender }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -190,12 +196,13 @@ const Register = () => {
                             />
 
                             <label htmlFor="role"></label>
-                            <select defaultValue="user" id="role" className="signup_select" required onChange={(e) => { this.setRole({ value: e.target.value }) }}>
-                                <option value="" disabled selected>Choose an option</option>
+                            <select id="role" className="signup_select" required value={role} onChange={(e) => setRole(e.target.value)}>
+                                <option value="" disabled selected >Role:</option>
                                 <option value="user">User</option>
                                 <option value="instructor">Instructor</option>
                                 <option value="admin">Admin</option>
                             </select>
+
 
                             <label htmlFor="email">
                                 <span className={validName ? "valid" : "hide"}>
@@ -273,6 +280,20 @@ const Register = () => {
                                 <FontAwesomeIcon icon={faInfoCircle} />
                                 Must match the first password input field.
                             </p>
+                            <div className="signup_input">
+                                <div className="radio-buttons">
+                                    <label htmlFor="gender" className="input-label">Gender:</label>
+                                    <div className="radio-button-container">
+                                        <input className="radio-button" type="radio" id="male" name="gender" value="male" onClick={(e) => setGender(e.target.value)} defaultChecked={true} />
+                                        <label htmlFor="male" className="input-label">Male</label>
+                                    </div>
+                                    <div className="radio-button-container">
+                                        <input className="radio-button" type="radio" id="female" name="gender" value="female" onClick={(e) => setGender(e.target.value)} />
+                                        <label htmlFor="female" className="input-label">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
                         </form>
                         <p>
