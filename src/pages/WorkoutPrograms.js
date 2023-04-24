@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import WorkoutItem from "../components/WorkoutItem";
 import FilterBar from "../components/FilterBar";
-import Loading from "../components/Loading"; // added
+import Loading from "../components/Loading"; 
 import "../styles/WorkoutPrograms.css";
 
 function WorkoutPrograms() {
   const [workouts, setWorkouts] = useState([]);
   const [activeFilter, setActiveFilter] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // added
-  const filters = ["All", "legs", "arms", "back", "hiit", "pilates", "yoga"];
+  const [isLoading, setIsLoading] = useState(true); 
+  const [watchedVideos, setWatchedVideos] = useState(
+    JSON.parse(localStorage.getItem("watchedVideos")) || []
+  );
+
+  const filters = ["All", "Recently Watched", "legs", "arms", "back", "hiit", "pilates", "yoga"];
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -30,22 +34,43 @@ function WorkoutPrograms() {
       }
     };
 
+    const watched = JSON.parse(localStorage.getItem('watchedVideos')) || [];
+    setWatchedVideos(watched);
+
     fetchWorkouts();
   }, []);
 
   const handleFilterClick = (filter) => {
     setActiveFilter(filter === "All" ? null : filter);
+    setWatchedVideos(JSON.parse(localStorage.getItem('watchedVideos')) || []);
   };
 
-  const filteredWorkouts = activeFilter
-    ? activeFilter === "All"
-      ? workouts
-      : workouts.filter(
-          (workout) =>
-            workout.category === activeFilter ||
-            workout.tags.includes(activeFilter)
-        )
-    : workouts;
+  let filteredWorkouts;
+  if (activeFilter) {
+    if (activeFilter === "All") {
+      filteredWorkouts = workouts;
+    } else if (activeFilter === "Recently Watched") {
+      filteredWorkouts = workouts.filter((workout) => watchedVideos.includes(workout.content_url));
+    } else {
+      filteredWorkouts = workouts.filter(
+        (workout) =>
+          workout.category === activeFilter ||
+          workout.tags.includes(activeFilter)
+      );
+    }
+  } else {
+    filteredWorkouts = workouts;
+  }
+
+  const handleVideoClick = (contentURL) => {
+    // check if video already exists in watchedVideos
+    const videoExists = watchedVideos.some(watchedVideo => watchedVideo === contentURL);
+    if (!videoExists) {
+      const watched = [...watchedVideos, contentURL];
+      setWatchedVideos(watched);
+      localStorage.setItem('watchedVideos', JSON.stringify(watched));
+    }
+  };
 
   return (
     <div>
@@ -74,6 +99,8 @@ function WorkoutPrograms() {
               likes={workout.likes}
               dislikes={workout.dislikes}
               calories={workout.calories}
+              watchedVideos={watchedVideos}
+              setWatchedVideos={setWatchedVideos}
             />
           ))}
         </div>

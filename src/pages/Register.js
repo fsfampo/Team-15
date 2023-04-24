@@ -199,7 +199,7 @@ const Register = () => {
                             <select id="role" className="signup_select" required value={role} onChange={(e) => setRole(e.target.value)}>
                                 <option value="" disabled selected >Role:</option>
                                 <option value="user">User</option>
-                                <option value="instructor">Instructor</option>
+                                <option value="trainer">Trainer</option>
                                 <option value="admin">Admin</option>
                             </select>
 

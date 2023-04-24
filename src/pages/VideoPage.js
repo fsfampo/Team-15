@@ -8,6 +8,8 @@ function VideoPage() {
       videoViews, videoLikes, videoDislikes, videoRating, videoCalories } } = useLocation();
     const videoId = contentURL.split("v=")[1];
     const tagsArray = videoTags.split(",").map(tag => `#${tag.trim()}`);
+
+    console.log("Video State: " + contentURL); 
   
     return (
       <div className="videoPage">
