@@ -1,4 +1,4 @@
-.navbar {
+.signnavbar {
     width: 100%;
     height: 100px;
     background-color: #000000;
@@ -7,7 +7,7 @@
     font-family: 'Open Sans', sans-serif;
   }
   
-  .navbar .leftSide {
+  .signnavbar .signleftSide {
     flex: 40%;
     height: 100%;
     display: flex;
@@ -15,12 +15,12 @@
     padding-left: 150px;
   }
   
-  .navbar .leftSide img {
+  .signnavbar .signleftSide img {
     width: 70px;
     height: auto;
   }
   
-  .navbar .rightSide {
+  .signnavbar .signrightSide {
     flex: 100%;
     height: 100%;
     display: flex;
@@ -29,44 +29,44 @@
     margin: 5px 100px 20px 20px; /* new line */
   }
 
-  .navbar a {
+  .signnavbar a {
     color: white;
     text-decoration: none;
     margin: 20px;
   }
   
-  .navbar .rightSide button {
+  .signnavbar .rightSide button {
     background-color: transparent;
     border: none;
     color: white;
     cursor: pointer;
   }
   
-  .navbar .rightSide svg {
+  .signnavbar .rightSide svg {
     font-size: 40px;
   }
   
-  .navbar #open {
+  .signnavbar #open {
     padding-left: 0px;
   }
-  .navbar #open img {
+  .signnavbar #open img {
     display: none;
   }
   
-  .navbar #close img {
+  .signnavbar #close img {
     display: inherit;
   }
   
-  .navbar #open .hiddenLinks {
+  .signnavbar #open .hiddenLinks {
     display: inherit;
     margin-left: 30px;
   }
   
-  .navbar #close .hiddenLinks {
+  .signnavbar #close .hiddenLinks {
     display: none;
   }
   
-  .navbar #open a {
+  .signnavbar #open a {
     width: 70px;
     margin: 5px;
   }

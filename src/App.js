@@ -11,9 +11,10 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Chat from "./pages/Chat";
 import SignupNavbar from "./components/SignupNavbar";
-import { BrowserRouter, Routes, Route, useLocation} from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import VideoPage from "./pages/VideoPage";
 import RoutineWorkouts from "./pages/RoutineWorkouts";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
 
@@ -23,28 +24,28 @@ function App() {
         <Routes>
           <Route path="/Login" element={
             <>
-              <SignupNavbar/>
+              <SignupNavbar />
               <Login />
             </>
           } />
           <Route path="/SignUp" element={
             <>
-              <SignupNavbar/>
+              <SignupNavbar />
               <Register />
             </>
           } />
           <Route path="/" exact element={
             <>
               <Navbar />
-              <Home/>
+              <Home />
             </>
-          }/>
+          } />
           <Route path="/workout-programs" element={
             <>
               <Navbar />
-              <WorkoutPrograms/>
+              <WorkoutPrograms />
             </>
-          }/>
+          } />
           <Route path="/workout-videos" element={
             <>
               <Navbar />
@@ -53,32 +54,38 @@ function App() {
           } />
           <Route path="/meal-plans" element={
             <>
-              <Navbar/>
-              <MealPlans/>
+              <Navbar />
+              <MealPlans />
             </>
           } />
-          <Route path="/routines"  element={
+          <Route path="/routines" element={
             <>
-              <Navbar/>
-              <Routines/>
+              <Navbar />
+              <Routines />
             </>
           } />
-          <Route path="/chat"  element={
+          <Route path="/chat" element={
             <>
-              <Navbar/>
-              <Chat/>
+              <Navbar />
+              <Chat />
             </>
           } />
           <Route path="/video" element={
             <>
-              <Navbar/>
-              <VideoPage/>
+              <Navbar />
+              <VideoPage />
             </>
           } />
           <Route path="/routine" element={
             <>
-              <Navbar/>
-              <RoutineWorkouts/>
+              <Navbar />
+              <RoutineWorkouts />
+            </>
+          } />
+          <Route path="/search" element={
+            <>
+              <Navbar />
+              <SearchPage />
             </>
           } />
         </Routes>

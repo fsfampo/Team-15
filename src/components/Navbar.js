@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Logo from "../assets/goJimLogo.jpg";
 import { Link } from "react-router-dom";
-import "../styles/Navbar.css";
 import SearchBar from "./SearchBar";
+import "../styles/Navbar.css"
 
 function Navbar() {
   const [openLinks, setOpenLinks] = useState(false);
@@ -11,6 +11,7 @@ function Navbar() {
     <div className="navbar">
       <div className="leftSide" id={openLinks ? "open" : "close"}>
         <Link to="/"><img src={Logo} alt="GoJim Logo" /></Link>
+        <h3 className="welcomeMsg">Welcome, {localStorage.getItem('email').split("@")[0]}</h3>
       </div>
       <div className="rightSide">
         <Link to="/"> Home </Link>
