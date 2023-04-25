@@ -1,36 +1,69 @@
-import React from "react";
-import WorkoutTwo from "../assets/workoutTwo.png";
-import "../styles/Routines.css";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../styles/WorkoutPrograms.css";
+import RoutineItem from "../components/RoutineItem";
+import Loading from "../components/Loading";
+import FilterBar from "../components/FilterBar";
+
 function Routines() {
-  const date = new Date();
+  const [workouts, setWorkouts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState(null);
+
+  const filters = ["All", "Recently Started"];
+
+  const handleFilterClick = (filter) => {
+    setActiveFilter(filter === "All" ? null : filter);
+  };
+
+  useEffect(() => {
+    const fetchWorkouts = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "http://gojim-backend.eastasia.cloudapp.azure.com/routine",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setWorkouts(response.data.result);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+
+    fetchWorkouts();
+  }, []);
+
+  console.log(workouts); 
+
   return (
-    <div className="about">
-      <div
-        className="aboutTop"
-        style={{ backgroundImage: `url(${WorkoutTwo})` }}
-      ></div>
-      <div className="aboutBottom">
-        <h1> Your Progress 💪 </h1>
-        <h2> Your Goal: 1200 Calories Burnt/Day</h2>
-        <h2> Today: 1400 Calories Burnt/Day</h2>
-        <ul>
-          <li> <b>Monday:</b> Arms |</li>
-          <li> <b>Tuesday:</b> Legs |</li>
-          <li> <b>Wednesday:</b> Back |</li>
-          <li> <b>Thursday:</b> Rest |</li>
-          <li> <b>Friday:</b> Arms |</li>
-          <li> <b>Saturday:</b> Legs |</li>
-          <li> <b>Sunday:</b> Rest</li>
-        </ul>
-        <ul>
-          <li> <b>Monday:</b> Weight Loss |</li>
-          <li> <b>Tuesday:</b> Bulking |</li>
-          <li> <b>Wednesday:</b> Weight Gain |</li>
-          <li> <b>Thursday:</b> Lean Bulk |</li>
-          <li> <b>Friday:</b> Bulking |</li>
-          <li> <b>Saturday:</b> Lean |</li>
-          <li> <b>Sunday:</b> Cutting </li>
-        </ul>
+    <div>
+      <FilterBar
+        filters={filters}
+        activeFilter={activeFilter}
+        onFilterClick={handleFilterClick}
+        title="Filters"
+      />
+      <div className="workoutsContainer">
+        {loading ? (
+          <Loading />
+        ) : (
+          workouts.map((routine, index) => (
+            <RoutineItem
+              key={index}
+              routine_id={routine.routine_id}
+              name={routine.name}
+              difficulty={routine.difficulty}
+              days={routine.no_days}
+              workouts={routine.workouts}
+            />
+          ))
+        )}
       </div>
     </div>
   );

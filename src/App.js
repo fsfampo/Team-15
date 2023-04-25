@@ -4,9 +4,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import WorkoutPrograms from "./pages/WorkoutPrograms";
-import WorkoutVideos from "./pages/WorkoutVideos";
-import MealPlans from "./pages/MealPlans";
 import Routines from "./pages/Routines";
+import MealPlans from "./pages/MealPlans";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Chat from "./pages/Chat";
@@ -62,19 +61,13 @@ function App() {
           <Route path="/workout-videos" element={
             <>
               <Navbar />
-              <WorkoutVideos />
+              <Routines />
             </>
           } />
           <Route path="/meal-plans" element={
             <>
               <Navbar />
               <MealPlans />
-            </>
-          } />
-          <Route path="/routines" element={
-            <>
-              <Navbar />
-              <Routines />
             </>
           } />
           <Route path="/chat" element={

@@ -6,6 +6,7 @@
     padding: 20px;
     font-family: 'Open Sans', sans-serif;
     justify-content: center;
+    margin-left: 50px; 
   }
   
   @media screen and (max-width: 1024px) {
