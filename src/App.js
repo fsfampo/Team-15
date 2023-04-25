@@ -19,6 +19,8 @@ import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPasswordComponent from "./components/ResetPasswordComponent";
 import { gapi } from "gapi-script";
+import { Nav } from "react-bootstrap";
+import Metrics from "./pages/Metrics";
 
 
 function App() {
@@ -117,6 +119,12 @@ function App() {
             <ResetPasswordComponent />
           </>
           }/>
+         <Route path="/metrics" element={
+            <>
+              <Navbar />
+              <Metrics />
+            </>
+          } />
         </Routes>
         <Footer />
       </BrowserRouter>
