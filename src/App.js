@@ -16,6 +16,8 @@ import VideoPage from "./pages/VideoPage";
 import RoutineWorkouts from "./pages/RoutineWorkouts";
 import SearchPage from "./pages/SearchPage";
 import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPasswordComponent from "./components/ResetPasswordComponent";
 
 function App() {
 
@@ -95,6 +97,18 @@ function App() {
               <Profile />
             </>
           } />
+          <Route path="/forgotPassword" element={
+            <>
+              <SignupNavbar />
+              <ForgotPassword />
+            </>
+          } />
+          <Route path="/reset-password/*" component={ResetPasswordComponent} element={
+            <>
+            <SignupNavbar />
+            <ResetPasswordComponent />
+          </>
+          }/>
         </Routes>
         <Footer />
       </BrowserRouter>

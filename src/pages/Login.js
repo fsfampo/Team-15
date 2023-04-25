@@ -144,6 +144,9 @@ const Login = () => {
                                 <Link to="/signup" className='login_button'> Sign Up</Link>
                             </span>
                         </p>
+                        <p>
+                            <Link to="/forgotPassword"> Forgot Password?</Link>
+                        </p>
                     </section>
                     <section className="image-container">
                         <img className="images" src={currentImage} alt="Bags" />
