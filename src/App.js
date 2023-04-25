@@ -20,6 +20,7 @@ import ResetPasswordComponent from "./components/ResetPasswordComponent";
 import { gapi } from "gapi-script";
 import { Nav } from "react-bootstrap";
 import Metrics from "./pages/Metrics";
+import RoutineItem from "./components/RoutineItem";
 
 
 function App() {
@@ -82,7 +83,7 @@ function App() {
               <VideoPage />
             </>
           } />
-          <Route path="/routine" element={
+          <Route path="/routines/:routine_id" element={
             <>
               <Navbar />
               <RoutineWorkouts />

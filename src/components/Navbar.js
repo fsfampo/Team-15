@@ -42,9 +42,9 @@ function Navbar() {
         </div>
         <div className="rightSide">
           <Link to="/"> Home </Link>
-          <Link to="/workout-programs"> Workout Programs </Link>
+          <Link to="/workout-programs"> Workouts </Link>
           <Link to="/workout-videos"> Routines </Link>
-          <Link to="/meal-plans"> Meal Plans </Link>
+          <Link to="/meal-plans"> Meals </Link>
           <Link to="/chat"> Chat </Link>
           <SearchBar />
           <Link to="/profile">

@@ -10,7 +10,7 @@ function Routines() {
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState(null);
 
-  const filters = ["All", "Recently Started"];
+  const filters = ["All", "stress relief", "core strength", "flexibility", "yoga"];
 
   const handleFilterClick = (filter) => {
     setActiveFilter(filter === "All" ? null : filter);
@@ -39,7 +39,22 @@ function Routines() {
     fetchWorkouts();
   }, []);
 
-  console.log(workouts); 
+  let filteredRoutines;
+  if (activeFilter) {
+    if (activeFilter === "All") {
+      filteredRoutines = workouts;
+    } else {
+      filteredRoutines = workouts.filter(
+        (workout) =>
+          workout.category === activeFilter ||
+          workout.tags.includes(activeFilter)
+      );
+    }
+  } else {
+    filteredRoutines = workouts;
+  }
+
+
 
   return (
     <div>
@@ -53,7 +68,7 @@ function Routines() {
         {loading ? (
           <Loading />
         ) : (
-          workouts.map((routine, index) => (
+          filteredRoutines.map((routine, index) => (
             <RoutineItem
               key={index}
               routine_id={routine.routine_id}

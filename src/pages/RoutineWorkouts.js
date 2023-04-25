@@ -1,28 +1,64 @@
-
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import WorkoutItem from "../components/WorkoutItem";
-import "../styles/PersonalRoutine.css"
-import FilterBar from "../components/FilterBar";
+import "../styles/PersonalRoutine.css";
+import axios from "axios";
+import Loading from "../components/Loading";
 
 function RoutineWorkouts() {
-    const { state: { workouts } } = useLocation();
-    const [activeFilter, setActiveFilter] = useState(null);
-    const filters = ["All", "Recently Watched"];
+    const { routine_id } = useParams();
+    const [workouts, setWorkouts] = useState([]);
+    const [title, setTitle] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [watchedVideos, setWatchedVideos] = useState(
+        JSON.parse(localStorage.getItem("watchedVideos")) || []
+      );
 
-    const handleFilterClick = (filter) => {
-        setActiveFilter(filter === "All" ? null : filter);
-    };
+    useEffect(() => {
+        const fetchWorkouts = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await axios.get(
+                    `http://gojim-backend.eastasia.cloudapp.azure.com/routine/${routine_id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                console.log(response.data);
+                setTitle(response.data.name); 
+                setWorkouts(response.data.workouts);
+                setIsLoading(false);
+            } catch (error) {
+                console.error(error);
+                alert("Failed to fetch workouts!");
+            }
+        };
 
+        const watched = JSON.parse(localStorage.getItem('watchedVideos')) || [];
+        setWatchedVideos(watched);
+
+        fetchWorkouts();
+    }, [routine_id]);
+
+    if (isLoading) {
+        return <Loading />;
+    }
+
+    const handleVideoClick = (contentURL) => {
+        // check if video already exists in watchedVideos
+        const videoExists = watchedVideos.some(watchedVideo => watchedVideo === contentURL);
+        if (!videoExists) {
+          const watched = [...watchedVideos, contentURL];
+          setWatchedVideos(watched);
+          localStorage.setItem('watchedVideos', JSON.stringify(watched));
+        }
+      };
 
     return (
         <div>
-            <FilterBar
-                filters={filters}
-                activeFilter={activeFilter}
-                onFilterClick={handleFilterClick}
-                title="Filters"
-            />
+            <h1>{title} Program</h1>
             <div className="routineContainer">
                 {Object.values(workouts).map((workoutArray, index) => (
                     <div key={index}>
@@ -41,6 +77,8 @@ function RoutineWorkouts() {
                                     likes={workout.likes}
                                     dislikes={workout.dislikes}
                                     calories={workout.calories}
+                                    watchedVideos={watchedVideos}
+                                    setWatchedVideos={setWatchedVideos}
                                 />
                             </div>
                         ))}

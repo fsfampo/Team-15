@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Routine.css";
 import axios from "axios";
 
-function RoutineItem({ key, routine_id, name, difficulty, days, workouts }) {
+function RoutineItem({ routine_id, name, difficulty, days, workouts }) {
   const navigate = useNavigate();
 
   const handleClick = async () => {
@@ -18,7 +18,7 @@ function RoutineItem({ key, routine_id, name, difficulty, days, workouts }) {
           },
         }
       );
-      navigate("/routine", { state: { workouts, name } });
+      navigate(`/routines/${routine_id}`);
     } catch (error) {
       console.error(error);
       alert("Failed to start routine!");
