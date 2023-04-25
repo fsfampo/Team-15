@@ -18,9 +18,17 @@ import SearchPage from "./pages/SearchPage";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPasswordComponent from "./components/ResetPasswordComponent";
+import { gapi } from "gapi-script";
+
 
 function App() {
-
+  gapi.load("client:auth2", () => {
+    gapi.client.init({
+      clientId:
+        "426633533706-bdr6hmh12goi97n5a6r66fkso4ov5vqd.apps.googleusercontent.com",
+      plugin_name: "chat",
+    });
+  });
   return (
     <div className="App">
       <BrowserRouter>

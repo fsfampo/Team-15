@@ -15,6 +15,8 @@ import img8 from '../assets/login/stretch.jpg';
 import img9 from '../assets/login/wall.jpg';
 import img10 from '../assets/login/weights.jpg';
 import img11 from '../assets/login/yoga.jpg';
+import { GoogleLogin } from 'react-google-login';
+
 
 const LOGIN_URL = "http://gojim-backend.eastasia.cloudapp.azure.com/login";
 const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11];
@@ -96,6 +98,20 @@ const Login = () => {
     const handlePwdFocus = () => {
         pwdRef.current.type = 'password';
     }
+    const onSuccess = (response) => {
+        console.log(response);
+        console.log(response.profileObj.email);
+        localStorage.setItem('email', response.profileObj.email)
+        nav("/")
+        console.log("after redirect")
+      };
+      
+      const onFailure = (error) => {
+
+        console.error(error);
+      };
+      
+
 
     return (
         <>
@@ -137,6 +153,14 @@ const Login = () => {
                                 required
                             />
                             <button>Sign In</button>
+                            <GoogleLogin
+                                clientId="426633533706-bdr6hmh12goi97n5a6r66fkso4ov5vqd.apps.googleusercontent.com"
+                                buttonText="Login with Google"
+                                onSuccess={onSuccess}
+                                onFailure={onFailure}
+                                // cookiePolicy={'single_host_origin'}
+                                prompt="select_account"
+                            />
                         </form>
                         <p>
                             Need an Account?
