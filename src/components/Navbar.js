@@ -74,7 +74,7 @@ function Navbar() {
       </div>
     );
   }
-  if(role === "trainer"){
+  if(role === "admin"){
     return (
       <div className="navbar">
         <div className="leftSide" id={openLinks ? "open" : "close"}>
