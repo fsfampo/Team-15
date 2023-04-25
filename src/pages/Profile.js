@@ -30,7 +30,6 @@ function Profile() {
           }
         );
         setProfile(response.data.result);
-        console.log(response.data.result);
       } catch (error) {
         console.error(error);
       }
@@ -53,7 +52,7 @@ function Profile() {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     localStorage.removeItem("watchedVideos"); 
-    localStorage.removeItem("completedWorkouts"); 
+    localStorage.removeItem("completedVideos"); 
     nav("/login");
   };
 
@@ -72,7 +71,7 @@ function Profile() {
                 <h4>Name: {firstName} {lastName}</h4>
                 <p>Email: {email}</p>
                 <p>Role: {role}</p>
-                <p>Completed Workouts: {localStorage.getItem("completedWorkouts")}</p>
+                <p>Completed Workouts: {JSON.parse(localStorage.getItem("completedVideos")).length}</p>
               </div>
               <button className="logout-button" onClick={handleLogout}>
             Logout

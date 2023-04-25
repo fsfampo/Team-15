@@ -12,7 +12,10 @@ function RoutineWorkouts() {
     const [isLoading, setIsLoading] = useState(true);
     const [watchedVideos, setWatchedVideos] = useState(
         JSON.parse(localStorage.getItem("watchedVideos")) || []
-      );
+    );
+    const [completedVideos, setCompletedVideos] = useState(
+        JSON.parse(localStorage.getItem("completedVideos")) || []
+    );
 
     useEffect(() => {
         const fetchWorkouts = async () => {
@@ -27,7 +30,7 @@ function RoutineWorkouts() {
                     }
                 );
                 console.log(response.data);
-                setTitle(response.data.name); 
+                setTitle(response.data.name);
                 setWorkouts(response.data.workouts);
                 setIsLoading(false);
             } catch (error) {
@@ -38,6 +41,9 @@ function RoutineWorkouts() {
 
         const watched = JSON.parse(localStorage.getItem('watchedVideos')) || [];
         setWatchedVideos(watched);
+
+        const completed = JSON.parse(localStorage.getItem('watchedVideos')) || [];
+        setCompletedVideos(completed);
 
         fetchWorkouts();
     }, [routine_id]);
@@ -50,11 +56,11 @@ function RoutineWorkouts() {
         // check if video already exists in watchedVideos
         const videoExists = watchedVideos.some(watchedVideo => watchedVideo === contentURL);
         if (!videoExists) {
-          const watched = [...watchedVideos, contentURL];
-          setWatchedVideos(watched);
-          localStorage.setItem('watchedVideos', JSON.stringify(watched));
+            const watched = [...watchedVideos, contentURL];
+            setWatchedVideos(watched);
+            localStorage.setItem('watchedVideos', JSON.stringify(watched));
         }
-      };
+    };
 
     return (
         <div>
@@ -79,6 +85,8 @@ function RoutineWorkouts() {
                                     calories={workout.calories}
                                     watchedVideos={watchedVideos}
                                     setWatchedVideos={setWatchedVideos}
+                                    completedVideos={completedVideos}
+                                    setCompletedVideos={setCompletedVideos}
                                 />
                             </div>
                         ))}

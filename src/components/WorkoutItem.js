@@ -24,12 +24,11 @@ function WorkoutItem({
   const handleClick = () => {
     // check if video already exists in watchedVideos
     const videoExists = watchedVideos.includes(contentURL);
-    const completedWorkouts = parseInt(localStorage.getItem('completedWorkouts')) || 0;
+    const completedVideos = JSON.parse(localStorage.getItem('completedVideos')) || [];
     if (!videoExists) {
       const watched = [...watchedVideos, contentURL];
       setWatchedVideos(watched);
       localStorage.setItem('watchedVideos', JSON.stringify(watched));
-      localStorage.setItem('completedWorkouts', completedWorkouts + 1);
     }
 
     navigate("/video", {
@@ -47,8 +46,9 @@ function WorkoutItem({
     });
   };
 
-  const isWatched = watchedVideos.includes(contentURL);
-  const itemClass = isWatched ? 'itemContainer watched' : 'itemContainer';
+  const completedVideos = JSON.parse(localStorage.getItem('completedVideos')) || [];
+  const isCompleted = completedVideos.includes(contentURL);
+  const itemClass = isCompleted ? 'itemContainer completed' : 'itemContainer';
 
   return (
     <div className={itemClass} onClick={handleClick}>
@@ -56,7 +56,7 @@ function WorkoutItem({
       <h1 className="itemTitle"> {name} </h1>
       <p> Level: {difficulty} </p>
       <p className="itemMetrics"> {views} views | {rating} stars | {duration} minutes</p>
-      {isWatched && <div className="completed">Completed</div>}
+      {isCompleted && <div className="completedContainer"><div className="completed">Completed</div></div>}
     </div>
   );
 }
