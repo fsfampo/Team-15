@@ -153,7 +153,7 @@ const Register = () => {
                     <section className="signup-container">
                         <h2>Scan this code for log in!</h2>
                         <img className="qrImg" src={`data:image/png;base64,${qrImg}`} alt="QR code" />
-                        <button className="qr-button">Log In</button>
+                        <button className="qr-button"><Link to="/login" className='login_button'> Login</Link></button>
                     </section>
                 </section>
             ) : (
@@ -299,7 +299,7 @@ const Register = () => {
                         <p>
                             Already Have an Account?
                             <span className="line">
-                                <Link to="/Login" className='login_button'> Login</Link>
+                                <Link to="/login" className='login_button'> Login</Link>
                             </span>
                         </p>
                     </section>
