@@ -24,6 +24,7 @@ import MyRoutines from "./pages/MyRoutines";
 import MealPlans from "./pages/MealPlans";
 import MealPlanMeals from "./pages/MealPlanMeals";
 import MyMealPlans from "./pages/MyMealPlans";
+import VideoApprovalPage from "./components/VideoApprovalPage";
 
 
 function App() {
@@ -144,6 +145,12 @@ function App() {
             <>
               <Navbar />
               <MyMealPlans />
+            </>
+          } />
+          <Route path="/approval" element={
+            <>
+              <Navbar />
+              <VideoApprovalPage />
             </>
           } />
         </Routes>

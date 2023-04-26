@@ -85,7 +85,7 @@ function Navbar() {
         <div className="rightSide">
           <Link to="/"> Home </Link>
           <Link to="/metrics"> Metrics </Link>
-          <Link to="/"> Approve Content </Link>
+          <Link to="/approval"> Approve Content </Link>
           <Link to="/chat"> Chat </Link>
           <SearchBar />
           <Link to="/profile">
