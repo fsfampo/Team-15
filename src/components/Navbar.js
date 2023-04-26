@@ -9,7 +9,7 @@ import axios from "axios";
 function Navbar() {
   const [openLinks, setOpenLinks] = useState(false);
   const [name, setName] = useState("");
-  const role  = localStorage.getItem("role"); 
+  const [role, setRole] = useState("user");
 
   useEffect(() => {
     const fetchName = async () => {
@@ -26,6 +26,7 @@ function Navbar() {
           }
         );
         setName(response.data.result[0].first_name);
+        setRole(response.data.result[0].role);
       } catch (error) {
         console.error(error);
       }
