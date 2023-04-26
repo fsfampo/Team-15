@@ -5,6 +5,7 @@ import Loading from "../components/Loading";
 import "../styles/Profile.css";
 import img1 from "../assets/signup/bags.jpg";
 import img2 from "../assets/signup/band.jpg";
+import PersonalNav from "../components/PersonalNav";
 
 function Profile() {
   const nav = useNavigate();
@@ -51,43 +52,44 @@ function Profile() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
-    localStorage.removeItem("watchedVideos"); 
-    localStorage.removeItem("completedVideos"); 
+    localStorage.removeItem("watchedVideos");
+    localStorage.removeItem("completedVideos");
     nav("/login");
   };
 
   return (
-    <div className="profile-container">
-      {firstName && lastName ? (
-        <>
-          <div className="grid-container">
-            <div className="grid-item">
-              <img className="imageprof" src={img2} alt="First image" />
-            </div>
-            <div className="grid-item">
-              <h1>User Profile</h1>
-              <hr />
-              <div className="info">
-                <h4>Name: {firstName} {lastName}</h4>
-                <p>Email: {email}</p>
-                <p>Role: {role}</p>
-                <p>Completed Workouts: {JSON.parse(localStorage.getItem("completedVideos")).length}</p>
+    <>
+      <div className="profile-container">
+        {firstName && lastName ? (
+          <>
+            <div className="grid-container">
+              <div className="grid-item">
+                      <PersonalNav></PersonalNav>
               </div>
-              <button className="logout-button" onClick={handleLogout}>
-            Logout
-          </button>
+              <div className="grid-item">
+                <h1>User Profile</h1>
+                <hr />
+                <div className="info">
+                  <h4>Name: {firstName} {lastName}</h4>
+                  <p>Email: {email}</p>
+                  <p>Role: {role}</p>
+                </div>
+                <button className="logout-button" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+              <div className="grid-item">
+                <img className="imageprof" src={img1} alt="Second image" />
+              </div>
             </div>
-            <div className="grid-item">
-              <img className="imageprof" src={img1} alt="Second image" />
-            </div>
+          </>
+        ) : (
+          <div className="loading">
+            <Loading />
           </div>
-        </>
-      ) : (
-        <div className="loading">
-          <Loading />
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
 

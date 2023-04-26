@@ -1,0 +1,28 @@
+.personal-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.personal-nav-item {
+  margin: 10px 0;
+  margin-bottom: 30px;
+}
+
+.personal-nav-item a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #888;
+  padding: 5px 10px;
+}
+
+.personal-nav-item a:hover,
+.personal-nav-item a.active {
+  color: #fff;
+  background-color: #333;
+}

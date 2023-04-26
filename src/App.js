@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import WorkoutPrograms from "./pages/WorkoutPrograms";
 import Routines from "./pages/Routines";
-import MealPlans from "./pages/MealPlans";
+import Meals from "./pages/Meals";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Chat from "./pages/Chat";
@@ -20,7 +20,10 @@ import ResetPasswordComponent from "./components/ResetPasswordComponent";
 import { gapi } from "gapi-script";
 import { Nav } from "react-bootstrap";
 import Metrics from "./pages/Metrics";
-import RoutineItem from "./components/RoutineItem";
+import MyRoutines from "./pages/MyRoutines";
+import MealPlans from "./pages/MealPlans";
+import MealPlanMeals from "./pages/MealPlanMeals";
+import MyMealPlans from "./pages/MyMealPlans";
 
 
 function App() {
@@ -65,10 +68,10 @@ function App() {
               <Routines />
             </>
           } />
-          <Route path="/meal-plans" element={
+          <Route path="/meals" element={
             <>
               <Navbar />
-              <MealPlans />
+              <Meals />
             </>
           } />
           <Route path="/chat" element={
@@ -87,6 +90,12 @@ function App() {
             <>
               <Navbar />
               <RoutineWorkouts />
+            </>
+          } />
+          <Route path="/meal-plan/:meal_plan_id" element={
+            <>
+              <Navbar />
+              <MealPlanMeals />
             </>
           } />
           <Route path="/search" element={
@@ -109,14 +118,32 @@ function App() {
           } />
           <Route path="/reset-password/*" component={ResetPasswordComponent} element={
             <>
-            <SignupNavbar />
-            <ResetPasswordComponent />
-          </>
-          }/>
-         <Route path="/metrics" element={
+              <SignupNavbar />
+              <ResetPasswordComponent />
+            </>
+          } />
+          <Route path="/metrics" element={
             <>
               <Navbar />
               <Metrics />
+            </>
+          } />
+          <Route path="/my-routines" element={
+            <>
+              <Navbar />
+              <MyRoutines />
+            </>
+          } />
+          <Route path="/mealPlans" element={
+            <>
+              <Navbar />
+              <MealPlans />
+            </>
+          } />
+          <Route path="/my-meal-plans" element={
+            <>
+              <Navbar />
+              <MyMealPlans />
             </>
           } />
         </Routes>

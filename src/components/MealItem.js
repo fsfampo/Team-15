@@ -1,14 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/MealPlans.css";
 
-function MealItem({ name, imgUrl, calories, servings}) {
+function MealItem({ title, image_url, calories, quantity}) {
 
   return (
     <div className="menuItem">
-    <h1 className="mealTitle">{name}</h1>
-      <div style={{ backgroundImage: `url(${imgUrl})`, height: '100%'}}> </div>
-      <p>calories: {calories} | servings: {servings}</p>
+    <h1 className="mealTitle">{title}</h1>
+      <div style={{ backgroundImage: `url(${image_url})`, height: '100%'}}> </div>
+      <p>calories: {calories} | servings: {quantity}</p>
     </div>
   );
 }
