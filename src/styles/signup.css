@@ -178,19 +178,41 @@
   justify-content: center;
   align-content: center;
 }
-
 input[type="radio"] {
+  height: 15px; 
+  width: 15px;
   margin-right: 10px;
   margin-top: 10px;
+  font-family: 'Open Sans', sans-serif;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #BDBFC7;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  background-color: white;
+}
+
+input[type="radio"]:checked {
+  background-color: #454851;
+  border-color: #454851;
+}
+
+.radio-buttons label {
+  margin-top: 10px;
+  margin-right: 10px;
+  font-family: 'Open Sans', sans-serif;
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-size: small;
 }
 
 .radio-buttons {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 20px;
 }
 
-.input-label {
-  margin-top: 10px;
-  margin-right: 5px;
-}

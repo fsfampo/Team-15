@@ -10,7 +10,7 @@ function Routines() {
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState(null);
 
-  const filters = ["All", "stress relief", "core strength", "flexibility", "yoga"];
+  const filters = ["All", "upperbody focus", "chest", "biceps", "core movements", "circuit"];
 
   const handleFilterClick = (filter) => {
     setActiveFilter(filter === "All" ? null : filter);

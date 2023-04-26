@@ -6,8 +6,8 @@ import MealItem from "../components/MealItem";
 
 function MealPlanMeals() {
     const { meal_plan_id } = useParams();
-    const [meals, setMeals] = useState([]);
-    const [title, setTitle] = useState([]);
+    const [meals, setMeals] = useState("");
+    const [title, setTitle] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -22,18 +22,22 @@ function MealPlanMeals() {
                         },
                     }
                 );
+                console.log("data");
                 console.log(response.data);
                 setTitle(response.data.name);
                 setMeals(response.data.meals);
                 setIsLoading(false);
             } catch (error) {
                 console.error(error);
-                alert("Failed to fetch meals!");
+                alert("Failed to fetch meals1! Error message: " + error.message);
             }
         };
 
         fetchMeals();
     }, [meal_plan_id]);
+
+    console.log("title", title);
+    console.log("meals", meals);
 
     if (isLoading) {
         return <Loading />;
@@ -47,7 +51,7 @@ function MealPlanMeals() {
                     <div key={index}>
                         {mealArray.map((meal) => (
                             <div className="row" key={meal._id.$oid}>
-                                {meal.contents.map((content, index) => (
+                                {meal.contents && meal.contents.map((content, index) => (
                                     <MealItem
                                         key={index}
                                         title={content.recipe}
@@ -60,6 +64,7 @@ function MealPlanMeals() {
                         ))}
                     </div>
                 ))}
+
             </div>
         </div>
     );

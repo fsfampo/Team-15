@@ -34,7 +34,7 @@ function Navbar() {
 
     fetchName();
   }, []);
-  if(role === "user"){
+  if (role === "user") {
     return (
       <div className="navbar">
         <div className="leftSide" id={openLinks ? "open" : "close"}>
@@ -46,6 +46,7 @@ function Navbar() {
           <Link to="/workout-programs"> Workouts </Link>
           <Link to="/workout-videos"> Routines </Link>
           <Link to="/mealPlans"> Meals </Link>
+          <Link to="/contact"> Contact </Link>
           <Link to="/chat"> Chat </Link>
           <SearchBar />
           <Link to="/profile">
@@ -55,7 +56,7 @@ function Navbar() {
       </div>
     );
   }
-  if(role === "trainer"){
+  if (role === "trainer") {
     return (
       <div className="navbar">
         <div className="leftSide" id={openLinks ? "open" : "close"}>
@@ -75,7 +76,7 @@ function Navbar() {
       </div>
     );
   }
-  if(role === "admin"){
+  if (role === "admin") {
     return (
       <div className="navbar">
         <div className="leftSide" id={openLinks ? "open" : "close"}>
@@ -96,7 +97,7 @@ function Navbar() {
     );
   }
 
-  
+
 }
 
 export default Navbar;
