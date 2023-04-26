@@ -42,7 +42,7 @@ function RoutineWorkouts() {
         const watched = JSON.parse(localStorage.getItem('watchedVideos')) || [];
         setWatchedVideos(watched);
 
-        const completed = JSON.parse(localStorage.getItem('watchedVideos')) || [];
+        const completed = JSON.parse(localStorage.getItem('completedVideos')) || [];
         setCompletedVideos(completed);
 
         fetchWorkouts();
@@ -61,6 +61,8 @@ function RoutineWorkouts() {
             localStorage.setItem('watchedVideos', JSON.stringify(watched));
         }
     };
+
+    
 
     return (
         <div>

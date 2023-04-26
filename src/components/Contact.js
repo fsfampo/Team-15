@@ -64,7 +64,7 @@ function Contact() {
                 },
             })
             .then((response) => {
-                console.log(`Appointments `, response.data);
+                console.log(`Appointments `, response.data.result);
             })
             .catch((error) => {
                 console.log(error);
@@ -130,10 +130,11 @@ function Contact() {
         )
             .then(response => {
                 console.log(response.data);
-                alert("Appointment Added!s"); 
+                alert("Appointment Added!"); 
             })
             .catch(error => {
                 console.log(error);
+                alert("No Appointment Available!"); 
             });
     }
 
