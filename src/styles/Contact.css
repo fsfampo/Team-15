@@ -6,18 +6,23 @@
   padding: 20px;
   font-family: 'Open Sans', sans-serif;
 }
-
 .react-calendar {
   border: none;
+  border-radius: 10px;
   max-width: 1000px;
   font-size: 16px;
   font-family: 'Open Sans', sans-serif;
 }
 
+.react-calendar__tile {
+  color: black;
+  border-radius: 10px;
+}
+
 .react-calendar__tile--active {
-  background-color: #007bff;
+  background-color: gray;
   color: white;
-  font-family: 'Open Sans', sans-serifs;
+  border-radius: 10px;
 }
 
 .appointment-modal {
@@ -73,7 +78,7 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: red;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -146,3 +151,4 @@
 .contact-header {
   background-color: white;
 }
+
