@@ -67,7 +67,7 @@ function VideoApprovalPage() {
   return (
     <div className="video-approval-page">
       <h1>Video Approval </h1>
-      <div className="video-thumbnail">
+      {/* <div className="video-thumbnail">
         <img src={content.image_url} alt={content.title} />
       </div>
       <div className="video-actions">
@@ -78,7 +78,30 @@ function VideoApprovalPage() {
           Reject
         </button>
       </div>
+      <p>Status: {status}</p> */}
+
+      <div className="video-thumbnail">
+        <img src={"https://www.mensjournal.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1152/MTk2MTM3Mjg3NjkxNjc1MTQx/man-exercising-in-gym.webp"} alt={content.title} />
+      </div>
+      <div >
+        <p>Full Body Workout for Beginners</p>
+        <p>This workout is perfect for beginners who want to improve their fitness levels.</p>
+        <p>Duration: 30 min</p>
+        <p>Difficulty: Beginner</p>
+        <p>Trainer: Johhn Smith</p>
+        
+      </div>
+      <div className="video-actions">
+        <button className="approve-button" onClick={handleApprove}>
+          Approve
+        </button>
+        <button className="reject-button" onClick={handleReject}>
+          Reject
+        </button>
+      </div>
       <p>Status: {status}</p>
+
+      
     </div>
   );
 }
