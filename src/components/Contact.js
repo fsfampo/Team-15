@@ -4,6 +4,8 @@ import Modal from 'react-modal';
 import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 import "../styles/Contact.css";
+import MealItem from './MealItem';
+import Loading from './Loading';
 
 Modal.setAppElement('#root');
 
@@ -14,6 +16,7 @@ function Contact() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isBookingSelected, setIsBookingSelected] = useState(false);
     const [isViewSelected, setIsViewSelected] = useState(false);
+    const [isMealsSelected, setIsMealsSelected] = useState(false);
     const [appointment, setAppointment] = useState({});
     const [trainers, setTrainers] = useState([]);
     const [selectedTrainer, setSelectedTrainer] = useState({});
@@ -21,6 +24,8 @@ function Contact() {
     const token = localStorage.getItem("token");
     const email = localStorage.getItem("email");
     const [myAppointments, setMyAppointments] = useState([]);
+    const [myMeals, setMyMeals] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         // First axios call to get trainers
@@ -57,6 +62,7 @@ function Contact() {
     }, []);
 
     const handleViewClick = () => {
+        setLoading(true);
         axios
             .get("http://gojim-backend.eastasia.cloudapp.azure.com/appointment", {
                 params: { user: personalUser },
@@ -67,11 +73,13 @@ function Contact() {
             .then((response) => {
                 console.log(`Appointments `, response.data.result);
                 setMyAppointments(response.data.result);
+                setLoading(false); 
             })
             .catch((error) => {
                 console.log(error);
             });
         setIsViewSelected(true);
+        
         setIsModalOpen(true);
     };
 
@@ -99,6 +107,7 @@ function Contact() {
         setIsModalOpen(false);
         setIsBookingSelected(false);
         setIsViewSelected(false);
+        setIsMealsSelected(false);
     }
 
     function getModalTitle() {
@@ -106,11 +115,33 @@ function Contact() {
             return "Book Appointment";
         } else if (isViewSelected) {
             return "Your Appointments";
-        } else {
-            return "Appointments";
+        } else if (isMealsSelected) {
+            return "Meals";
+        } else{ 
+            return "Your Day:";
         }
     }
 
+    const handleMealClick = () => {
+        setLoading(true);
+        axios
+            .get(`http://gojim-backend.eastasia.cloudapp.azure.com/meal/${email}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+
+                setMyMeals(response.data.result);
+                setLoading(false); 
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        setIsModalOpen(true);
+        setIsMealsSelected(true);
+    };
+    console.log(myMeals);
     function handleAppointmentSubmit(event) {
         event.preventDefault();
         setIsModalOpen(false);
@@ -152,6 +183,10 @@ function Contact() {
         }
     }
 
+    if (loading) {
+        return <Loading />;
+      }
+
     return (
         <div className="calendar-scheduler">
             <Calendar
@@ -161,7 +196,7 @@ function Contact() {
             <Modal
                 isOpen={isModalOpen}
                 onRequestClose={handleModalClose}
-                className="appointment-modal"
+                className={`appointment-modal${isMealsSelected ? " meal-modal" : ""}`}
                 overlayClassName="appointment-modal-overlay"
             >
                 <h2 className='contact-header'>{getModalTitle()}</h2>
@@ -228,11 +263,34 @@ function Contact() {
                         </form>
                     </div>
                 )}
-                {!isViewSelected && !isBookingSelected && (
+                {isMealsSelected && (
+                    <div className="mealsContainer">
+                        {Object.values(myMeals).map((meal, index) => (
+                            <div key={index}>
+                                {meal.contents && (
+                                    <div className="row">
+                                        {meal.contents.map((content, index) => (
+                                            <MealItem
+                                                key={index}
+                                                title={content.recipe}
+                                                image_url={content.image_url}
+                                                calories={content.calories}
+                                                quantity={content.quantity}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            
+                {!isViewSelected && !isBookingSelected && !isMealsSelected && (
                     <div>
                         {/* buttons to show when nothing is selected */}
-                        <button className="contact-button-view" onClick={handleViewClick}>View</button>
-                        <button className="contact-button-view" onClick={handleBookClick}>Book</button>
+                        <button className="contact-button-view" onClick={handleMealClick}>Meals of the Day</button>
+                        <button className="contact-button-view" onClick={handleViewClick}>View Appointments</button>
+                        <button className="contact-button-view" onClick={handleBookClick}>Book Appointment</button>
                     </div>
                 )}
             </Modal>
