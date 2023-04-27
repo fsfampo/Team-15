@@ -132,3 +132,17 @@
   background-color: gray;
   font-family: 'Open Sans', sans-serif;
 }
+
+.appointment-list-container {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.appointment-list li {
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.contact-header {
+  background-color: white;
+}

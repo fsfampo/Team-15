@@ -20,6 +20,7 @@ function Contact() {
     const [personalUser, setPersonalUser] = useState();
     const token = localStorage.getItem("token");
     const email = localStorage.getItem("email");
+    const [myAppointments, setMyAppointments] = useState([]);
 
     useEffect(() => {
         // First axios call to get trainers
@@ -65,6 +66,7 @@ function Contact() {
             })
             .then((response) => {
                 console.log(`Appointments `, response.data.result);
+                setMyAppointments(response.data.result);
             })
             .catch((error) => {
                 console.log(error);
@@ -96,10 +98,17 @@ function Contact() {
     function handleModalClose() {
         setIsModalOpen(false);
         setIsBookingSelected(false);
+        setIsViewSelected(false);
     }
 
     function getModalTitle() {
-        return isBookingSelected ? "Book Appointment" : "Appointments";
+        if (isBookingSelected) {
+            return "Book Appointment";
+        } else if (isViewSelected) {
+            return "Your Appointments";
+        } else {
+            return "Appointments";
+        }
     }
 
     function handleAppointmentSubmit(event) {
@@ -110,10 +119,6 @@ function Contact() {
         const formattedStartDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), parseInt(startTime.split(':')[0]), parseInt(startTime.split(':')[1]), 0).toISOString().slice(0, 19).replace('T', ' ');
         const formattedEndDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), parseInt(endTime.split(':')[0]), parseInt(endTime.split(':')[1]), 0).toISOString().slice(0, 19).replace('T', ' ');
 
-        console.log(selectedTrainer); 
-        console.log(personalUser); 
-        console.log(formattedStartDate); 
-        console.log(formattedEndDate); 
         axios.put(
             'http://gojim-backend.eastasia.cloudapp.azure.com/appointment',
             {
@@ -130,12 +135,13 @@ function Contact() {
         )
             .then(response => {
                 console.log(response.data);
-                alert("Appointment Added!"); 
+                alert("Appointment Added!");
             })
             .catch(error => {
                 console.log(error);
-                alert("No Appointment Available!"); 
+                alert("No Appointment Available!");
             });
+        setIsBookingSelected(false);
     }
 
 
@@ -158,60 +164,75 @@ function Contact() {
                 className="appointment-modal"
                 overlayClassName="appointment-modal-overlay"
             >
-                <h2>{getModalTitle()}</h2>
-                {isBookingSelected ? (
-                    <form onSubmit={handleAppointmentSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="trainer">Trainer:</label>
-                            <select
-                                onChange={handleTrainerChange}
-                                className="trainer-select"
-                                id="trainer"
-                                name="trainer"
-                                required
-                            >
-                                <option value="">Select...</option>
-                                {trainers.map((trainer, index) => (
-                                    <option key={index} value={trainer.value}>
-                                        {trainer.label}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="time">Start Time:</label>
-                            <input
-                                onChange={handleStartClick}
-                                className="contactTime"
-                                type="time"
-                                id="starttime"
-                                name="time"
-                                required
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="time">End Time:</label>
-                            <input
-                                onChange={handleEndClick}
-                                className="contactTime"
-                                type="time"
-                                id="endtime"
-                                name="time"
-                                required
-                            />
-                        </div>
-                        <button className="contact-button" type="submit">
-                            Submit
-                        </button>
-                    </form>
-                ) : (
+                <h2 className='contact-header'>{getModalTitle()}</h2>
+                {isViewSelected && (
+                    <div className="appointment-list-container">
+                        <ul className="appointment-list">
+                            {myAppointments.map((appointment, index) => (
+                                <li key={index}>
+                                    <div>Appointment with: {appointment.trainer}</div>
+                                    <div>From: {new Date(appointment.appointment_start.$date).toLocaleString()}</div>
+                                    <div>To: {new Date(appointment.appointment_end.$date).toLocaleString()}</div>
+
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+
+                {isBookingSelected && (
                     <div>
-                        <button onClick={handleViewClick} className="contact-button-view" type="button">
-                            View
-                        </button>
-                        <button onClick={handleBookClick} className="contact-button-view" type="button">
-                            Book
-                        </button>
+                        <form onSubmit={handleAppointmentSubmit}>
+                            <div className="form-group">
+                                <label htmlFor="trainer">Trainer:</label>
+                                <select
+                                    onChange={handleTrainerChange}
+                                    className="trainer-select"
+                                    id="trainer"
+                                    name="trainer"
+                                    required
+                                >
+                                    <option value="">Select...</option>
+                                    {trainers.map((trainer, index) => (
+                                        <option key={index} value={trainer.value}>
+                                            {trainer.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="time">Start Time:</label>
+                                <input
+                                    onChange={handleStartClick}
+                                    className="contactTime"
+                                    type="time"
+                                    id="starttime"
+                                    name="time"
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="time">End Time:</label>
+                                <input
+                                    onChange={handleEndClick}
+                                    className="contactTime"
+                                    type="time"
+                                    id="endtime"
+                                    name="time"
+                                    required
+                                />
+                            </div>
+                            <button className="contact-button" type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                )}
+                {!isViewSelected && !isBookingSelected && (
+                    <div>
+                        {/* buttons to show when nothing is selected */}
+                        <button className="contact-button-view" onClick={handleViewClick}>View</button>
+                        <button className="contact-button-view" onClick={handleBookClick}>Book</button>
                     </div>
                 )}
             </Modal>
