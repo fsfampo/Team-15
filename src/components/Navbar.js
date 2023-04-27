@@ -46,7 +46,7 @@ function Navbar() {
           <Link to="/workout-programs"> Workouts </Link>
           <Link to="/workout-videos"> Routines </Link>
           <Link to="/mealPlans"> Meals </Link>
-          <Link to="/contact"> Contact </Link>
+          <Link to="/contact"> Appointments </Link>
           <Link to="/chat"> Chat </Link>
           <SearchBar />
           <Link to="/profile">
