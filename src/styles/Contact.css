@@ -161,3 +161,12 @@
   background-color: white;
 }
 
+.mealsContainer {
+  height: 400px;
+  overflow: scroll;
+}
+
+.meal-modal {
+  width: 900px;
+  height: 500px;
+}
